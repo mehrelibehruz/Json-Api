@@ -3,9 +3,11 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using TMPro;
 
 public class JSonText : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI jsonText;
     IEnumerator StartJson()
     {
         using (UnityWebRequest request = UnityWebRequest.Get("https://catfact.ninja/fact"))
@@ -15,7 +17,7 @@ public class JSonText : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 JObject o = JObject.Parse(request.downloadHandler.text);
-                Debug.Log(o["fact"].ToString());
+                jsonText.text = o["fact"].ToString();
             }
         }
     }
